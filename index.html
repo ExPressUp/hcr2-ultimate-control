@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080d18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HCR2 Control">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <title>HCR2 Ultimate Control</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080d18;--panel:#131e30;--panel2:#0d1727;--cyan:#65c8ff;--muted:#91a1b8;--line:#26364d}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#080d18,#101c30);color:#f5f8ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+    header{padding:calc(18px + env(safe-area-inset-top)) 20px 16px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:850;letter-spacing:.7px;font-size:18px}.sub{font-size:10px;color:var(--muted);letter-spacing:1.2px;margin-top:4px}
+    .pill{font-size:10px;color:#70e0ad;border:1px solid #28664f;background:#102b24;padding:6px 9px;border-radius:99px}
+    main{padding:0 16px 100px;max-width:650px;margin:auto}.panel{background:linear-gradient(145deg,#16243a,#101a2a);border:1px solid var(--line);border-radius:21px;padding:17px;margin:12px 0;box-shadow:0 12px 30px #0003}
+    h2{font-size:12px;letter-spacing:1.2px;color:#9eafc8;margin:0 0 14px}.wallet{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tile{background:#0b1525;border-radius:15px;padding:14px}.value{font-size:24px;font-weight:800;letter-spacing:-.5px}.gold{color:#ffd15a}.blue{color:var(--cyan)}.caption{font-size:10px;color:var(--muted);margin-top:5px}
+    .notice{font-size:11px;color:#9aa9bf;line-height:1.5;margin-top:12px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #ffffff12}.row:last-child{border:0;padding-bottom:0}.name{font-size:14px;font-weight:650}.hint{font-size:10px;color:var(--muted);margin-top:4px}
+    input[type=checkbox]{appearance:none;width:46px;height:27px;background:#34445c;border-radius:99px;position:relative;flex:none;transition:.2s}
+    input[type=checkbox]:checked{background:#1689c9}input[type=checkbox]:before{content:"";position:absolute;width:21px;height:21px;border-radius:50%;background:white;top:3px;left:3px;transition:.2s}input[type=checkbox]:checked:before{left:22px}
+    select{background:#0b1525;color:white;border:1px solid var(--line);padding:12px;border-radius:12px;width:100%;font-size:14px}
+    .slider-block{margin:16px 0}.slider-head{display:flex;justify-content:space-between;font-size:13px;font-weight:650}.slider-head output{color:var(--cyan)}input[type=range]{width:100%;accent-color:#65c8ff;margin-top:12px}
+    nav{position:fixed;bottom:0;left:0;right:0;padding:9px 12px calc(9px + env(safe-area-inset-bottom));background:#09111feF;border-top:1px solid #ffffff18;display:flex;justify-content:space-around;backdrop-filter:blur(18px)}
+    nav button{background:none;border:0;color:#8797af;font-size:10px;padding:5px 12px;display:grid;gap:4px;justify-items:center}nav button b{font-size:19px;font-weight:500}nav button.active{color:var(--cyan)}
+    .page{display:none}.page.active{display:block}.car-icon{font-size:34px;background:#0b1525;border-radius:14px;padding:10px}.selection{display:flex;align-items:center;gap:12px}
+    .action{border:1px solid var(--line);background:#0b1525;color:#eaf4ff;padding:11px 13px;border-radius:12px;font-weight:650}.danger{color:#ff9b9b}.small{font-size:11px;color:var(--muted);line-height:1.5}
+    footer{text-align:center;color:#71819a;font-size:10px;padding:8px 15px 20px}
+  </style>
+</head>
+<body>
+<header><div><div class="brand">HCR2 ULTIMATE CONTROL</div><div class="sub">RACING COMPANION · LOCAL DEMO</div></div><span class="pill">PROTOTYPE</span></header>
+<main>
+  <section id="home" class="page active">
+    <div class="panel"><h2>DEMO WALLET</h2><div class="wallet">
+      <div class="tile"><div class="value gold">999,999</div><div class="caption">COINS · ILLUSTRATIVE</div></div>
+      <div class="tile"><div class="value blue">99,999</div><div class="caption">GEMS · ILLUSTRATIVE</div></div>
+    </div><div class="notice">These are sample display values only. This companion does not connect to or change your game account.</div></div>
+    <div class="panel"><h2>QUICK CONTROLS</h2><div id="toggles"></div></div>
+    <div class="panel"><h2>ACTIVE GARAGE</h2><div class="selection"><span class="car-icon">🏎️</span><div><div class="name" id="homeVehicle">Supercar</div><div class="hint">Saved on this device</div></div></div></div>
+  </section>
+  <section id="garage" class="page">
+    <div class="panel"><h2>VEHICLE COLLECTION</h2><div class="hint" style="margin-bottom:12px">Choose a vehicle for your local garage display.</div>
+      <select id="vehicle"><option>Supercar</option><option>Motocross</option><option>Monster Truck</option><option>Rally Car</option><option>Jeep</option></select>
+      <p class="notice">Selection is stored in this web app only. It does not unlock vehicles in Hill Climb Racing 2.</p>
+    </div>
+  </section>
+  <section id="tuning" class="page">
+    <div class="panel"><h2>DEMO PHYSICS SETTINGS</h2>
+      <div class="slider-block"><div class="slider-head"><label for="speed">Speed multiplier</label><output id="speedOut">2.0×</output></div><input id="speed" type="range" min="1" max="10" step=".5" value="2"></div>
+      <div class="slider-block"><div class="slider-head"><label for="gravity">Gravity</label><output id="gravityOut">50%</output></div><input id="gravity" type="range" min="0" max="100" value="50"></div>
+      <div class="slider-block"><div class="slider-head"><label for="suspension">Suspension</label><output id="suspensionOut">50%</output></div><input id="suspension" type="range" min="0" max="100" value="50"></div>
+      <p class="notice">These sliders save local demo values. They are not applied to the official game.</p>
+    </div>
+  </section>
+  <section id="settings" class="page">
+    <div class="panel"><h2>APP SETTINGS</h2><p class="small">HCR2 Ultimate Control is an independent companion prototype. It is not affiliated with the game's developers.</p><button class="action danger" id="reset">Reset local settings</button></div>
+    <div class="panel"><h2>INSTALL ON IPHONE</h2><p class="small">Open this site in Safari, tap Share, choose “Add to Home Screen”, then tap Add. The site must be published over HTTPS for the home-screen web app and offline cache to work.</p></div>
+  </section>
+</main>
+<nav>
+  <button class="active" data-page="home"><b>⌂</b>Home</button><button data-page="garage"><b>🚗</b>Garage</button><button data-page="tuning"><b>☷</b>Tuning</button><button data-page="settings"><b>⚙</b>Settings</button>
+</nav>
+<footer>Standalone demo · No game account access · No game modification</footer>
+<script>
+const featureNames=["Unlimited Fuel (demo toggle)","Vehicle Unlocks (demo toggle)","Maximum Upgrades (demo toggle)","Infinite Boost (demo toggle)","Custom Physics (demo toggle)","Custom Skins (demo toggle)"];
+const toggleHost=document.querySelector("#toggles");
+let saved=JSON.parse(localStorage.getItem("hcr2-features")||"{}");
+featureNames.forEach((name,i)=>{const row=document.createElement("div");row.className="row";const label=document.createElement("div");label.innerHTML='<div class="name"></div><div class="hint">Local switch only</div>';label.querySelector(".name").textContent=name;const input=document.createElement("input");input.type="checkbox";input.checked=!!saved[i];input.addEventListener("change",()=>{saved[i]=input.checked;localStorage.setItem("hcr2-features",JSON.stringify(saved))});row.append(label,input);toggleHost.append(row)});
+const vehicle=document.querySelector("#vehicle"),homeVehicle=document.querySelector("#homeVehicle");
+vehicle.value=localStorage.getItem("hcr2-vehicle")||"Supercar";homeVehicle.textContent=vehicle.value;
+vehicle.addEventListener("change",()=>{localStorage.setItem("hcr2-vehicle",vehicle.value);homeVehicle.textContent=vehicle.value});
+["speed","gravity","suspension"].forEach(id=>{const el=document.getElementById(id),out=document.getElementById(id+"Out"),stored=localStorage.getItem("hcr2-"+id);if(stored!==null)el.value=stored;const update=()=>{out.textContent=(id==="speed"?Number(el.value).toFixed(1)+"×":el.value+"%");localStorage.setItem("hcr2-"+id,el.value)};el.addEventListener("input",update);update()});
+document.querySelectorAll("nav button").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b===btn));document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===btn.dataset.page))}));
+document.querySelector("#reset").addEventListener("click",()=>{if(confirm("Reset all local demo settings?")){localStorage.clear();location.reload()}});
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script>
+</body></html>
